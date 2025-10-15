@@ -23,7 +23,7 @@ Python (Version 3.8 or higher recommended)
 
 Git for cloning the repository
 
-Step 1: Clone the Repository
+# Step 1: Clone the Repository
 First, clone the repository from GitHub to your local machine.
 
 git clone [https://github.com/YOUR_USERNAME/AI-Phishing-Detector.git](https://github.com/YOUR_USERNAME/AI-Phishing-Detector.git)
@@ -31,7 +31,7 @@ cd AI-Phishing-Detector
 
 (Remember to replace YOUR_USERNAME with your actual GitHub username!)
 
-Step 2: Set Up a Virtual Environment
+# Step 2: Set Up a Virtual Environment
 It's a best practice to create a virtual environment to manage project dependencies.
 
 Create the virtual environment
@@ -43,14 +43,14 @@ Activate it (Windows)
 Activate it (macOS/Linux)
 source venv/bin/activate
 
-Step 3: Install Required Packages
+# Step 3: Install Required Packages
 Install all the necessary Python libraries using pip.
 
 pip install -r requirements.txt
 
 (Note: You will need to create a requirements.txt file first. See the note below.)
 
-Step 4: Run the Application
+# Step 4: Run the Application
 The project has two parts that need to be running.
 
 1. Start the Backend Server:
