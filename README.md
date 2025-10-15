@@ -1,8 +1,8 @@
 # AI-Phishing-Detector
 Your personal AI guardian for a safer inbox.
 
-AI Phishing Detector
-Project for the Octopus Hackathon
+
+#AI Phishing Detector
 
 A simple and powerful web application designed to protect users from malicious emails by using an AI model to detect phishing attempts.
 
@@ -34,13 +34,13 @@ cd AI-Phishing-Detector
 Step 2: Set Up a Virtual Environment
 It's a best practice to create a virtual environment to manage project dependencies.
 
-# Create the virtual environment
+Create the virtual environment
 python -m venv venv
 
-# Activate it (Windows)
+Activate it (Windows)
 .\venv\Scripts\activate
 
-# Activate it (macOS/Linux)
+Activate it (macOS/Linux)
 source venv/bin/activate
 
 Step 3: Install Required Packages
