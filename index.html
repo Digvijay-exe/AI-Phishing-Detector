@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Phishing Email Detector</title>
+    <style>
+        /* Simple, modern styling for the page */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 2rem 3rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            color: #1c1e21;
+            margin-bottom: 0.5rem;
+        }
+        p {
+            color: #606770;
+            margin-bottom: 2rem;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 1rem;
+            border: 1px solid #dddfe2;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+            resize: vertical;
+        }
+        button {
+            background-color: #0866ff;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        button:hover {
+            background-color: #0655d4;
+        }
+        #result {
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        /* Dynamic classes for the result box */
+        .safe {
+            color: #0f5132;
+            background-color: #d1e7dd;
+        }
+        .phishing {
+            color: #842029;
+            background-color: #f8d7da;
+        }
+        .loading {
+            color: #606770;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>AI Phishing Detector</h1>
+        <p>Paste the full text of a suspicious email below and our AI will analyze it for you.</p>
+        
+        <textarea id="emailText" placeholder="Enter email text here..."></textarea>
+        
+        <button onclick="checkEmail()">Check Email</button>
+        
+        <!-- The result of the prediction will be displayed here -->
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // This function will be called when the button is clicked
+        async function checkEmail() {
+            const emailText = document.getElementById('emailText').value;
+            const resultDiv = document.getElementById('result');
+
+            // 1. Basic check to ensure the user entered some text
+            if (emailText.trim() === '') {
+                resultDiv.textContent = 'Please paste some email text first.';
+                return;
+            }
+
+            // 2. Show a loading message and prepare for the API call
+            resultDiv.textContent = 'Analyzing...';
+            resultDiv.className = 'loading'; // Reset classes
+
+            try {
+                // 3. Send the data to our Flask backend using the fetch API
+                const response = await fetch('http://127.0.0.1:5000/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ text: emailText }) // Send data in the required format
+                });
+
+                // 4. Get the JSON response from the backend
+                const data = await response.json();
+
+                // 5. Display the prediction and style the result box
+                if (data.prediction === 'Phishing Email') {
+                    resultDiv.textContent = 'Result: ' + data.prediction;
+                    resultDiv.className = 'phishing';
+                } else {
+                    resultDiv.textContent = 'Result: ' + data.prediction;
+                    resultDiv.className = 'safe';
+                }
+
+            } catch (error) {
+                // 6. Handle errors (e.g., if the backend server is not running)
+                console.error('Error:', error);
+                resultDiv.textContent = 'Error: Could not connect to the server.';
+                resultDiv.className = 'phishing';
+            }
+        }
+    </script>
+
+</body>
+</html>
