@@ -2,7 +2,7 @@
 Your personal AI guardian for a safer inbox.
 
 
-#AI Phishing Detector
+# AI Phishing Detector
 
 A simple and powerful web application designed to protect users from malicious emails by using an AI model to detect phishing attempts.
 
